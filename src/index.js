@@ -1,4 +1,4 @@
-import { fetchBreeds, fetchCatByBreed } from './сat-api';
+import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
 
 
