@@ -14,7 +14,7 @@ function idCatBreedSelect(breeds) {
   const optionsHTML = breeds
   .map((bread) => ` <select id="single">
                       <option value='${bread.id}'>${bread.name}</option>
-                    // </<select>` ) 
+                    </<select>` ) 
   .join('');
   breedSelect.innerHTML = optionsHTML;
 }
