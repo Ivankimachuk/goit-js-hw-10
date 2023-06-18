@@ -2,7 +2,17 @@
 
 import {fetchBreeds, fetchCatByBreed} from './cat-api';
 import SlimSelect from 'slim-select';
+import Notiflix from 'notiflix';
 import 'slim-select/dist/slimselect.css';
+import 'notiflix/dist/notiflix-3.2.6.min.css';
+
+const notifyWarning = {
+  width: '500px',
+  fontSize: '25px',
+  position: 'center-top',
+  opacity: 0.7,
+  timeout: 1500,
+};
 
 const breedSelect = document.querySelector('.breed-select');
 const loader = document.querySelector('.loader');
@@ -31,19 +41,21 @@ function hideLoader() {
 
 function showError() {
   error.style.display = 'block';
+  Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
 }
 
 function hideError() {
   error.style.display = 'none';
+  
 }
 
 function showCatInfo(cat) {
-  if (cat.breeds.length > 0) {
+  if (cat[0].breeds.length > 0) {
     const infoHTML = `
-      <img src="${cat.url}" class="cat-image" width="700" height="400" />
-      <p class="cat-text">${cat.breeds[0].name}</p>
-      <p class='cat-info-text'>${cat.breeds[0].description}</p>
-      <p class='cat-info-text'>${cat.breeds[0].temperament}</p>
+      <img src="${cat[0].url}" class="cat-image" width="700" height="400" />
+      <p class="cat-text">${cat[0].breeds[0].name}</p>
+      <p class='cat-info-text'>${cat[0].breeds[0].description}</p>
+      <p class='cat-info-text'>${cat[0].breeds[0].temperament}</p>
     `;
     catInfo.innerHTML = infoHTML;
   } else {
@@ -58,10 +70,13 @@ function onBreedSelectChange() {
 
   fetchCatByBreed(breedId)
     .then((cat) => {
+      console.log(cat)
       hideLoader();
       showCatInfo(cat);
+      
     })
     .catch((error) => {
+      console.log(error)
       hideLoader();
       showError();
     });
@@ -78,6 +93,7 @@ fetchBreeds()
     idCatBreedSelect(breeds);
   })
   .catch((error) => {
+    console.log(error)
     hideLoader();
     showError();
   });
