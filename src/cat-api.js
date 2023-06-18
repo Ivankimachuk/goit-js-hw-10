@@ -7,14 +7,16 @@ export function fetchBreeds() {
       "x-api-key": API_KEY
     }
   })
-  .then((response) => response.json())
-  .then((data) => {
-    return data;
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+    return response.json();
   })
-  .catch((error) => {
-    console.log(error);
-  });
 }
+
+
+
 
 
 
@@ -25,10 +27,11 @@ export function fetchCatByBreed(breedId) {
       "x-api-key": API_KEY
     }
   })
-  .then((response) => response.json())
-  .then((data) => data[0])
-  .catch((error) => {
-    console.log(error)
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+    return response.json();
   })
   
 }
