@@ -60,6 +60,7 @@ function showCatInfo(cat) {
     catInfo.innerHTML = infoHTML;
   } else {
     showError();
+    catInfo.innerHTML = '';
   }
 }
 
